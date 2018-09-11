@@ -1,9 +1,6 @@
-//THis is a file
+let notes = document.getElementById("content");
 
-function segmentText(text){
-  let lines = text.split("");
-}
-
-function parseText(text){
-
-}
+let updater = setInterval(()=>{
+  //notes.innerHTML = segmentText(notes.innerText);
+  console.log(parseText(segmentText(notes.innerText)));
+}, 100);
