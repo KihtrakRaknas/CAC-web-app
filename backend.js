@@ -16,6 +16,11 @@ initDoc("(DocID)");
 
 exitDoc("(DocID)");
 
+function upDocData(newVal){
+  docData=newVal;
+
+}
+
 function initDoc(DocID){
   base.ref('/Docs/'+DocID).on('value', function(snapshot) {
     console.log(snapshot.val());
