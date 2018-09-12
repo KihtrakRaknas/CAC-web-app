@@ -55,7 +55,7 @@ function parseText(box){
   types = lines.map((line)=>getType(line));
   let inhtml = "";
   for(let div of box.childNodes){
-	let type =  getType(div.innerText) 
+	let type =  getType(div.innerText)
 	div.className = type.name;
 	type.style(div);
   }
