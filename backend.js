@@ -6,7 +6,7 @@ var config = {
   storageBucket: "cac-web-app.appspot.com",
   messagingSenderId: "398640011671"
 };
-firebase.initializeApp(config);
+//firebase.initializeApp(config);
 
 var base = firebase.database();
 var baseDoc = null;

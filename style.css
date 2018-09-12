@@ -4,7 +4,7 @@
 
     #content{
       border:1px solid;
-      height: 90%;
+      height: 90vh;
       /*max-height: 800px;*/
       overflow-y: scroll;
       border-radius: 10px;
