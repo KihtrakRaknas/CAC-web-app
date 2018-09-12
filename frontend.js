@@ -3,10 +3,10 @@ function updateInputBox(newText){
 }
 
 $( document ).ready(function(){
-  //DOESNT WORK; TODO: NEEDto call function when text edited
-  $( "#content" ).change(function(){
-    //upDocDataText(notes.innerText);
-    console.log("TEST");
+  notes.addEventListener("input",function(){
+    //when the input field gets edited
+    console.log("edit");
+    upDocDataText(notes.innerText);//should check to make sure that its not the same input
   });
 
 
