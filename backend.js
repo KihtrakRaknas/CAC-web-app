@@ -9,32 +9,49 @@ var config = {
 firebase.initializeApp(config);
 
 var base = firebase.database();
+var baseDoc = null;
 
 var docData = null;
 
 initDoc("(DocID)");
 
-exitDoc("(DocID)");
+//exitDoc("(DocID)");
 
 function upDocData(newVal){
   docData=newVal;
+  if(docData==null){
+    console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
+  }else{
+    updateInputBox(docData.Content["Raw Text"]);
+  }
+}
 
+function upDocDataText(newVal){
+  docData.Content["Raw Text"] = newVal;
+  updateServer();
+}
+
+function updateServer(){
+  baseDoc.update(docData);
 }
 
 function initDoc(DocID){
-  base.ref('/Docs/'+DocID).on('value', function(snapshot) {
+  baseDoc = base.ref('/Docs/'+DocID);
+  baseDoc.on('value', function(snapshot) {
     console.log(snapshot.val());
-    docData = snapshot.val();
+    upDocData(snapshot.val());
   });
 }
 
 
 function exitDoc(DocID){
-  docData = null;
-  base.ref('/Docs/'+DocID).off(/*'value', function(snapshot) {
+  upDocData(null);
+
+  baseDoc.off(/*'value', function(snapshot) {
     console.log(snapshot.val());
     docData = snapshot.val();
   }*/);
+  baseDoc=null
 }
 
 function read(){

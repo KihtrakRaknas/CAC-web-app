@@ -1,4 +1,3 @@
-//THis is a file
 function segmentText(text){
 //  console.log(text);
   let lines = text.split("\n");
