@@ -19,8 +19,6 @@ function setCaretToPos(row,pos) {
 function setCaretToCurPos() {
   setCaretToPos(caretRow,caretPos)
 }
-
-
 function getCaretPos(){
 	var el = notes;
   var caretOffset = 0, sel;
@@ -70,7 +68,8 @@ function setCaretPosition(d){
 }
 
 
-var data
+var data;
+
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
     //when the input field gets edited (doesn't fire when innerText is changed in code)
@@ -84,9 +83,6 @@ $( document ).ready(function(){
     uploadDocDataText(notes.innerHTML);//should check to make sure that its not the same input
 
   });
-
-
-
 
 
 });

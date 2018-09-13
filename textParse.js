@@ -30,17 +30,6 @@ let causal = new InfoType("causal", " because ", (line)=>{
 });
 let infoTypes = [equation, definition, causal];
 
-function segmentText(text){
-//  console.log(text);
-  let lines = text.split("\n");
-  spans = lines.map( (line)=>{
-    span1 = "<span class='true'>";
-    span2 = "</span>";
-    return span1+line+span2;
-  })
-  return spans.join("\n");
-}
-
 function getType(line){
 	for(let infotype of infoTypes){
 		if(line.indexOf(infotype.keyword) >= 0){
@@ -54,9 +43,11 @@ function parseText(box){
   let lines = box.innerText.trim().split("\n");
   types = lines.map((line)=>getType(line));
   let inhtml = "";
-  for(let div of box.childNodes){
+  for(let i=0;i<box.childNodes.length;i++){
+	let div = box.childNodes[i];
 	let type =  getType(div.innerText)
 	div.className = type.name;
+	div.id = i;
 	type.style(div);
   }
   //box.innerHTML = inhtml;
