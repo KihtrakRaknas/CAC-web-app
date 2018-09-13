@@ -23,10 +23,11 @@ function upDocData(newVal){
     console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
   }else{
     updateInputBox(docData.Content["Raw Text"]);
+    setCaretToCurPos();
   }
 }
 
-function upDocDataText(newVal){
+function uploadDocDataText(newVal){
   docData.Content["Raw Text"] = newVal;
   updateServer();
 }
