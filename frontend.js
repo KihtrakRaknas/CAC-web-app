@@ -1,10 +1,18 @@
 var caretRow = 2
 var caretPos = 2
 
+var pos = null;
+
 function updateInputBox(newText){
-  notes.innerHTML=newText;
-  if(data)
-    setCaretPosition(data);
+  $( document ).ready(function(){
+    if(pos==null)
+      pos = 0
+    else
+      pos = getCaretPos();
+    console.log("TEST"+pos);
+    notes.innerHTML=newText;
+    setCaretPosition(getCaretData(pos));
+  });
 }
 
 function setCaretToPos(row,pos) {
@@ -68,7 +76,6 @@ function setCaretPosition(d){
 }
 
 
-var data;
 
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
@@ -78,8 +85,7 @@ $( document ).ready(function(){
     //caretRow = savedRange.startContainer //TODO: FIX THIS
     //caretPos = savedRange.startOffset
 
-    data = getCaretData(getCaretPos());
-    console.log(data);
+    console.log(pos);
     uploadDocDataText(notes.innerHTML);//should check to make sure that its not the same input
 
   });
