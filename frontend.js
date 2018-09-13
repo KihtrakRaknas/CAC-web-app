@@ -17,7 +17,7 @@ function setCaretToPos(row,pos) {
 function setCaretToCurPos() {
   setCaretToPos(caretRow,caretPos)
 }
-
+/*
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
     //when the input field gets edited (doesn't fire when innerText is changed in code)
@@ -28,7 +28,7 @@ $( document ).ready(function(){
 
     uploadDocDataText(notes.innerText);//should check to make sure that its not the same input
   });
-
+*/
 
 
 
