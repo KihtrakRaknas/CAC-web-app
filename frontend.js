@@ -57,6 +57,7 @@ function getCaretData(position){
       position -= nodes[n].nodeValue.length;
     } else {
       node = n;
+      console.log(n)
       break;
     }
   }
