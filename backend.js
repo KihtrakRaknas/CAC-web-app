@@ -23,7 +23,7 @@ function upDocData(newVal){
     console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
   }else{
     updateInputBox(docData.Content["Raw Text"]);
-    setCaretToCurPos();
+    //setCaretToCurPos();//TODO: FIX THIS
   }
 }
 
