@@ -51,5 +51,6 @@ function parseText(box){
 	type.style(div);
   }
   //box.innerHTML = inhtml;
+  
   return types;
 }

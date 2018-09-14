@@ -1,17 +1,15 @@
 var caretRow = 2
 var caretPos = 2
 
-var pos = null;
+var pos = {rowID: 0,offset: 0};;
 
 function updateInputBox(newText){
   $( document ).ready(function(){
-    if(pos==null)
-      pos = 0
-    else
-      pos = getCaretPos();
-    console.log("TEST"+pos);
+    //parseText(notes);
+    pos = getCaretPos();
+    //console.log(pos);
     notes.innerHTML=newText;
-    setCaretPosition(getCaretData(pos));
+    setCaretPosition(pos);
   });
 }
 
@@ -28,7 +26,7 @@ function setCaretToCurPos() {
   setCaretToPos(caretRow,caretPos)
 }
 function getCaretPos(){
-	var el = notes;
+	/*var el = notes;
   var caretOffset = 0, sel;
   if (typeof window.getSelection !== "undefined") {
     var range = window.getSelection().getRangeAt(0);
@@ -38,26 +36,40 @@ function getCaretPos(){
     preCaretRange.setEnd(range.endContainer, range.endOffset);
     caretOffset = preCaretRange.toString().length - selected;
     console.log(caretOffset);
+  }*/
+  if (window.getSelection().type!="None"){
+    console.log(window.getSelection().getRangeAt(0).startContainer.id+1);
+    if(isNaN(parseInt(window.getSelection().getRangeAt(0).startContainer.parentElement.id))){//Needed when creating an empty new line
+      console.log("PARENT NOT #");
+      console.log(window.getSelection().getRangeAt(0));
+      return {rowID: parseInt(window.getSelection().getRangeAt(0).startContainer.id),offset: window.getSelection().getRangeAt(0).startOffset};
+    }
+    return {rowID: parseInt(window.getSelection().getRangeAt(0).startContainer.parentElement.id),offset: window.getSelection().getRangeAt(0).startOffset};
+
   }
-  return caretOffset;
+  return {rowID: 0,offset: 0};
+
 }
 
-function getAllTextnodes(el){
+function getAllTextnodes(){
+  /*
   var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
   while(n=walk.nextNode()) a.push(n);
-  return a;
+  //return a;*/
+  return notes.childNodes;
 }
-
+//notes.childNodes
 function getCaretData(position){
   var el = notes;
   var node; nodes = getAllTextnodes(el);
   for(var n = 0; n < nodes.length; n++) {
-    if (position > nodes[n].nodeValue.length && nodes[n+1]) {
+    if (position > nodes[n].innerText.length && nodes[n+1]) {
       // remove amount from the position, go to next node
-      position -= nodes[n].nodeValue.length;
+      position -= nodes[n].innerText.length;
     } else {
       node = n;
       console.log(n)
+      console.log("pos"+position)
       break;
     }
   }
@@ -68,28 +80,48 @@ function getCaretData(position){
 // you may need to modify currentCaretPosition, see "Little Details"    section below
 
 // setting the caret with this info  is also standard
-function setCaretPosition(d){
+var expect = null;
+function setCaretPosition(d){/*
   var sel = window.getSelection(), range = document.createRange();
-  range.setStart(getAllTextnodes(notes)[d.node], d.position);
+  console.log(getAllTextnodes(notes));
+  range.setStart(getAllTextnodes(notes)[d.node].childNodes[0], d.position);
+  range.collapse(true);
+  sel.removeAllRanges();
+  sel.addRange(range);*/
+  var sel = window.getSelection(), range = document.createRange();
+  console.log(d);
+  console.log(getAllTextnodes(notes));
+  console.log(getAllTextnodes(notes)[d.rowID]);
+  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length);
+  if(getAllTextnodes(notes)[d.rowID].childNodes[0].length<d.offset){//The Node doesn't have enough charecters to recreate the cursor's location
+    expect = d.offset;
+    d.offset = getAllTextnodes(notes)[d.rowID].childNodes[0].length;
+  }else if(expect!=null){
+    d.offset = expect;
+    expect = null;
+  }
+  range.setStart(getAllTextnodes(notes)[d.rowID].childNodes[0], d.offset);
   range.collapse(true);
   sel.removeAllRanges();
   sel.addRange(range);
 }
 
-
+var lastLocalTimestamp = 0;
 
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
-    //when the input field gets edited (doesn't fire when innerText is changed in code)
-    //console.log("edit");
-    //savedRange = window.getSelection().getRangeAt(0).cloneRange();
-    //caretRow = savedRange.startContainer //TODO: FIX THIS
-    //caretPos = savedRange.startOffset
-
-    console.log(pos);
-    uploadDocDataText(notes.innerHTML);//should check to make sure that its not the same input
-
+        AfterInput(new Date().getTime()) ;
   });
 
 
 });
+
+function AfterInput(tim){
+  //if(new Date().getTime()>=lastLocalTimestamp+1000){
+    //lastLocalTimestamp = new Date().getTime()
+    parseText(notes);
+    uploadDocDataText(notes.innerHTML);//should check to make sure that its not the same input
+  //}else if(tim>lastLocalTimestamp){
+  //  setTimeout(AfterInput,100,tim);
+  //}
+}

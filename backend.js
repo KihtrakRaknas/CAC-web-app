@@ -33,6 +33,7 @@ function uploadDocDataText(newVal){
 }
 
 function updateServer(){
+  docData.Content.Timestamp = new Date().getTime();
   baseDoc.update(docData);
 }
 
