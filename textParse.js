@@ -6,6 +6,18 @@ class InfoType{
 	}
 }
 
+//I created this class now thinking I'd use it, but it turns out we don't need it now
+//Though it might be modified and used later for games
+class InfoObject{
+	constructor(HTMLElement, infoType){
+		this.html = HTMLElement;
+		this.info = HTMLElement.innerText;
+		this.type = infoType;
+		this.id = id();
+	}
+}
+
+
 let defaultType = new InfoType("default", "", (line)=>{
 	line.style.fontFamily = "Arial";
 	line.style.fontSize = "18px";
@@ -28,7 +40,9 @@ let causal = new InfoType("causal", " because ", (line)=>{
 	line.style.fontWeight="bold";
 	line.style.color = "green";
 });
+
 let infoTypes = [equation, definition, causal];
+let usedIDs = [];
 
 function getType(line){
 	for(let infotype of infoTypes){
@@ -50,6 +64,10 @@ function parseText(box){
 	let type =  getType(div.innerText)
 	div.className = type.name;
 	div.id = i;
+	if(!div.dataset.uid || (i > 0 && box.childNodes[i-1].dataset.uid === div.dataset.uid)){
+		div.dataset.uid = id();
+		console.log(div.dataset.uid);
+	}
 	type.style(div);
 	let lDiv = document.createElement("div");
 	lDiv.innerText = type.name==="default"?"\n":type.name
@@ -60,4 +78,13 @@ function parseText(box){
   //box.innerHTML = inhtml;
   
   return types;
+}
+
+function id(){
+	let rand;
+	do{
+		rand = Math.random().toString().substring(2);
+	}while(usedIDs.indexOf(rand) > -1);
+	usedIDs.push(rand);
+	return rand;
 }
