@@ -104,6 +104,8 @@ function setCaretPosition(d){/*
   range.collapse(true);
   sel.removeAllRanges();
   sel.addRange(range);
+  //getAllTextnodes(notes)[d.rowID].tabIndex = -1;
+  //getAllTextnodes(notes)[d.rowID].focus();
 }
 
 var lastLocalTimestamp = 0;
