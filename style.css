@@ -1,11 +1,20 @@
     .container {
       height: 100vh;
     }
+	
+	.main {
+		float: left;
+		border:1px solid;
+		height: 90vh;
+		overflow-y: scroll;
+		border-radius: 10px;
+	}
 
     #content{
-      border:1px solid;
-      height: 90vh;
+	  width: 80vw;
       /*max-height: 800px;*/
-      overflow-y: scroll;
-      border-radius: 10px;
     }
+
+	#labels{
+		width:15vw;
+	}

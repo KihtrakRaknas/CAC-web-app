@@ -43,12 +43,19 @@ function parseText(box){
   let lines = box.innerText.trim().split("\n");
   types = lines.map((line)=>getType(line));
   let inhtml = "";
+  labels.innerText = "";
+  defaultType.style(labels);
   for(let i=0;i<box.childNodes.length;i++){
 	let div = box.childNodes[i];
 	let type =  getType(div.innerText)
 	div.className = type.name;
 	div.id = i;
 	type.style(div);
+	let lDiv = document.createElement("div");
+	lDiv.innerText = type.name==="default"?"\n":type.name
+	type.style(lDiv);
+	lDiv.style.textAlign = "center";
+	labels.appendChild(lDiv);
   }
   //box.innerHTML = inhtml;
   
