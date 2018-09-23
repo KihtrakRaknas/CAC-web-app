@@ -17,7 +17,7 @@ initDoc("(DocID)");
 
 //exitDoc("(DocID)");
 
-function upDocData(newVal){
+function upDocData(newVal){//updateLocal
   docData=newVal;
   if(docData==null){
     console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
@@ -28,6 +28,11 @@ function upDocData(newVal){
 }
 
 function uploadDocDataText(newVal){
+  for(div of notes.childNodes){
+    docData.Content[div.dataset.uid] = div.innerText;
+    console.log(div.dataset.uid);
+  }
+  console.log(docData);
   docData.Content["Raw Text"] = newVal;
   updateServer();
 }
@@ -35,6 +40,10 @@ function uploadDocDataText(newVal){
 function updateServer(){
   docData.Content.Timestamp = new Date().getTime();
   baseDoc.update(docData);
+}
+
+function updateServerDiv(){
+
 }
 
 function initDoc(DocID){
