@@ -22,15 +22,20 @@ function upDocData(newVal){//updateLocal
   if(docData==null){
 //    console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
   }else{
-    updateInputBox(docData.Content["Raw Text"]);
+    updateInputBox(docData.Content.divs);
     //setCaretToCurPos();//TODO: FIX THIS
   }
 }
 
 function uploadDocDataText(newVal){
   for(div of notes.childNodes){
+<<<<<<< HEAD
     docData.Content[div.dataset.uid] = div.innerText;
   //  console.log(div.dataset.uid);
+=======
+    docData.Content.divs[div.dataset.uid] = {text:div.innerText, index: parseInt(div.id)};
+    console.log(div.dataset.uid);
+>>>>>>> 5c85524fa571be7a38c13147d860a7939be9ab16
   }
 //  console.log(docData);
   docData.Content["Raw Text"] = newVal;

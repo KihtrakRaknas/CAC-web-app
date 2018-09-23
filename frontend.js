@@ -4,14 +4,34 @@ var caretPos = 2
 var prevPos = {rowID: 0, offset: 0};
 var pos = {rowID: 0, offset: 0};
 
-function updateInputBox(newText){
+function updateInputBox(newDivs){
   $( document ).ready(function(){
     //parseText(notes);
     prevPos.rowID = pos.rowID;
     prevPos.offset = pos.offset;
     pos = getCaretPos();
+    console.log(newDivs);
     //console.log(pos);
-    notes.innerHTML=newText;
+    //notes.innerHTML="";
+    for(div in newDivs){
+      var found = false;
+      for(var nod of notes.childNodes){
+        if(div == nod.dataset.uid){
+          found = true;
+          if(nod.innerText!=newDivs[div].text){
+            nod.innerText=newDivs[div].text;
+          }
+          break;
+        }
+      }
+      if(!found){
+        var pat = document.createElement("div");
+        pat.innerText = newDivs[div].text;
+        pat.dataset.uid = div;
+        console.log(pat);
+        notes.appendChild(pat);
+      }
+    }
     setCaretPosition(pos);
   });
 }
