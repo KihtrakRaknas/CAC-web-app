@@ -60,23 +60,25 @@ function parseText(box){
   labels.innerText = "";
   defaultType.style(labels);
   for(let i=0;i<box.childNodes.length;i++){
-	let div = box.childNodes[i];
-	let type =  getType(div.innerText)
-	div.className = type.name;
-	div.id = i;
-	if(!div.dataset.uid || (i > 0 && box.childNodes[i-1].dataset.uid === div.dataset.uid)){
-		div.dataset.uid = id();
-		console.log(div.dataset.uid);
-	}
-	type.style(div);
-	let lDiv = document.createElement("div");
-	lDiv.innerText = type.name==="default"?"\n":type.name
-	type.style(lDiv);
-	lDiv.style.textAlign = "center";
-	labels.appendChild(lDiv);
+		let div = box.childNodes[i];
+		let type =  getType(div.innerText)
+		div.className = type.name;
+		div.id = i;
+
+		if(!div.dataset.uid || (i > 0 && box.childNodes[i-1].dataset.uid === div.dataset.uid) ){
+			div.dataset.uid = id();
+			console.log("Prev Pos", prevPos);
+			console.log(div.dataset.uid);
+		}
+		type.style(div);
+		let lDiv = document.createElement("div");
+		lDiv.innerText = type.name==="default"?"\n":type.name
+		type.style(lDiv);
+		lDiv.style.textAlign = "center";
+		labels.appendChild(lDiv);
   }
   //box.innerHTML = inhtml;
-  
+
   return types;
 }
 

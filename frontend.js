@@ -1,11 +1,14 @@
 var caretRow = 2
 var caretPos = 2
 
-var pos = {rowID: 0,offset: 0};;
+var prevPos = {rowID: 0, offset: 0};
+var pos = {rowID: 0, offset: 0};
 
 function updateInputBox(newText){
   $( document ).ready(function(){
     //parseText(notes);
+    prevPos.rowID = pos.rowID;
+    prevPos.offset = pos.offset;
     pos = getCaretPos();
     //console.log(pos);
     notes.innerHTML=newText;
