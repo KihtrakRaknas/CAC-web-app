@@ -64,12 +64,21 @@ function parseText(box){
 		let type =  getType(div.innerText)
 		div.className = type.name;
 		div.id = i;
+	//	prevPos.rowID = pos.rowID;
+  //  prevPos.offset = pos.offset;
+  //  pos = getCaretPos();
+	//	console.log(i);
 
-		if(!div.dataset.uid || (i > 0 && box.childNodes[i-1].dataset.uid === div.dataset.uid) ){
+		if(!div.dataset.uid){
 			div.dataset.uid = id();
-			console.log("Prev Pos", prevPos);
+			console.log("Prev Pos", pos);
+			console.log(div.dataset.uid);
+		} else if( (pos.offset === 0) && (box.childNodes[i+1].dataset.uid === div.dataset.uid) ){
+			div.dataset.uid = id();
+			console.log("Prev Pos", pos);
 			console.log(div.dataset.uid);
 		}
+
 		type.style(div);
 		let lDiv = document.createElement("div");
 		lDiv.innerText = type.name==="default"?"\n":type.name

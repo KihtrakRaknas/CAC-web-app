@@ -20,7 +20,7 @@ initDoc("(DocID)");
 function upDocData(newVal){//updateLocal
   docData=newVal;
   if(docData==null){
-    console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
+//    console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
   }else{
     updateInputBox(docData.Content["Raw Text"]);
     //setCaretToCurPos();//TODO: FIX THIS
@@ -30,9 +30,9 @@ function upDocData(newVal){//updateLocal
 function uploadDocDataText(newVal){
   for(div of notes.childNodes){
     docData.Content[div.dataset.uid] = div.innerText;
-    console.log(div.dataset.uid);
+  //  console.log(div.dataset.uid);
   }
-  console.log(docData);
+//  console.log(docData);
   docData.Content["Raw Text"] = newVal;
   updateServer();
 }
@@ -49,7 +49,7 @@ function updateServerDiv(){
 function initDoc(DocID){
   baseDoc = base.ref('/Docs/'+DocID);
   baseDoc.on('value', function(snapshot) {
-    console.log(snapshot.val());
+//    console.log(snapshot.val());
     upDocData(snapshot.val());
   });
 }

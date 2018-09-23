@@ -43,8 +43,8 @@ function getCaretPos(){
   if (window.getSelection().type!="None"){
     //console.log(window.getSelection().getRangeAt(0).startContainer.id+1);
     if(isNaN(parseInt(window.getSelection().getRangeAt(0).startContainer.parentElement.id))){//Needed when creating an empty new line
-      console.log("PARENT NOT #");
-      console.log(window.getSelection().getRangeAt(0));
+      //console.log("PARENT NOT #");
+      //console.log(window.getSelection().getRangeAt(0));
       return {rowID: parseInt(window.getSelection().getRangeAt(0).startContainer.id),offset: window.getSelection().getRangeAt(0).startOffset};
     }
     return {rowID: parseInt(window.getSelection().getRangeAt(0).startContainer.parentElement.id),offset: window.getSelection().getRangeAt(0).startOffset};
@@ -71,8 +71,8 @@ function getCaretData(position){
       position -= nodes[n].innerText.length;
     } else {
       node = n;
-      console.log(n)
-      console.log("pos"+position)
+    //  console.log(n)
+  //    console.log("pos"+position)
       break;
     }
   }
@@ -92,14 +92,14 @@ function setCaretPosition(d){/*
   sel.removeAllRanges();
   sel.addRange(range);*/
   var sel = window.getSelection(), range = document.createRange();
-  console.log(d);
+//  console.log(d);
   //console.log(getAllTextnodes(notes));
   //console.log(getAllTextnodes(notes)[d.rowID]);
-  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length);
+//  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length);
   if(getAllTextnodes(notes)[d.rowID].childNodes[0].length<d.offset){//The Node doesn't have enough charecters to recreate the cursor's location
-    console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length-d.offset);
-    if(d.offset-getAllTextnodes(notes)[d.rowID].childNodes[0].length>1)
-      alert("Our Systems have detected button mashing");
+//    console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length-d.offset);
+  //  if(d.offset-getAllTextnodes(notes)[d.rowID].childNodes[0].length>1)
+    //  alert("Our Systems have detected button mashing");
     expect = d.offset;
     d.offset = getAllTextnodes(notes)[d.rowID].childNodes[0].length;
   }else if(expect!=null){
@@ -122,5 +122,6 @@ $( document ).ready(function(){
     uploadDocDataText(notes.innerHTML);
   });
 
-
 });
+
+let trackCursor = setInterval(()=>{pos = getCaretPos()}, 1000/60);
