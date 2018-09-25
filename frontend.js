@@ -10,7 +10,10 @@ function updateInputBox(newDivs){
     prevPos.rowID = pos.rowID;
     prevPos.offset = pos.offset;
     pos = getCaretPos();
+<<<<<<< HEAD
 //    console.log(newDivs);
+=======
+>>>>>>> 21edb99267ebb359e993f5378b28e4afd4feb83c
     //console.log(pos);
     //notes.innerHTML="";
     for(div in newDivs){
@@ -28,8 +31,20 @@ function updateInputBox(newDivs){
         var pat = document.createElement("div");
         pat.innerText = newDivs[div].text;
         pat.dataset.uid = div;
-//        console.log(pat);
+        console.log("ADDED "+pat);
         notes.appendChild(pat);
+      }
+    }
+    for(var nod of notes.childNodes){
+      var found = false;
+      for(div in newDivs){
+        if(nod.dataset.uid==div){
+          found = true;
+        }
+      }
+      if(!found){
+        console.log("REMOVED "+nod);
+        nod.remove();
       }
     }
     setCaretPosition(pos);

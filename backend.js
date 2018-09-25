@@ -29,12 +29,13 @@ function upDocData(newVal){//updateLocal
 
 function uploadDocDataText(newVal){
   for(div of notes.childNodes){
-    docData.Content.divs[div.dataset.uid] = {text:div.innerText, index: parseInt(div.id)};
-  //  console.log(div.dataset.uid);
+    //docData.Content.divs[div.dataset.uid] = {text:div.innerText, index: parseInt(div.id)};
+    baseDoc.child("content").child("divs").child(div.dataset.uid).update({text:div.innerText, index: parseInt(div.id)});//DOESN"T WORK YET
+    //console.log(div.dataset.uid);
   }
 //  console.log(docData);
-  docData.Content["Raw Text"] = newVal;
-  updateServer();
+  //docData.Content["Raw Text"] = newVal;
+  //updateServer();
 }
 
 function updateServer(){
