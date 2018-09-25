@@ -53,6 +53,17 @@ function getType(line){
 	return defaultType;
 }
 
+//////////////////////////////
+notes.onkeydown = (event)=>{
+	let key = event.which || event.charCode;
+	if(key === 13){
+			console.log(getCaretPos());
+		if(getCaretPos().offset === 0){
+			notes.childNodes[getCaretPos().rowID].dataset.uid = id();
+		}
+	}
+}
+//////////////////////////////
 function parseText(box){
   let lines = box.innerText.trim().split("\n");
   types = lines.map((line)=>getType(line));
@@ -71,12 +82,12 @@ function parseText(box){
 
 		if(!div.dataset.uid){
 			div.dataset.uid = id();
-			console.log("Prev Pos", pos);
+		} else if( i > 0 && (box.childNodes[i-1].dataset.uid === div.dataset.uid) ){
+			console.log(box.childNodes[i-1].dataset.uid);
 			console.log(div.dataset.uid);
-		} else if( (pos.offset === 0) && (box.childNodes[i+1].dataset.uid === div.dataset.uid) ){
 			div.dataset.uid = id();
-			console.log("Prev Pos", pos);
-			console.log(div.dataset.uid);
+			console.log("Prev Pos", pos, "activated");
+		//	console.log(div.dataset.uid);
 		}
 
 		type.style(div);

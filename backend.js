@@ -30,7 +30,7 @@ function upDocData(newVal){//updateLocal
 function uploadDocDataText(newVal){
   for(div of notes.childNodes){
     docData.Content.divs[div.dataset.uid] = {text:div.innerText, index: parseInt(div.id)};
-    console.log(div.dataset.uid);
+  //  console.log(div.dataset.uid);
   }
 //  console.log(docData);
   docData.Content["Raw Text"] = newVal;

@@ -10,7 +10,7 @@ function updateInputBox(newDivs){
     prevPos.rowID = pos.rowID;
     prevPos.offset = pos.offset;
     pos = getCaretPos();
-    console.log(newDivs);
+//    console.log(newDivs);
     //console.log(pos);
     //notes.innerHTML="";
     for(div in newDivs){
@@ -28,7 +28,7 @@ function updateInputBox(newDivs){
         var pat = document.createElement("div");
         pat.innerText = newDivs[div].text;
         pat.dataset.uid = div;
-        console.log(pat);
+//        console.log(pat);
         notes.appendChild(pat);
       }
     }
