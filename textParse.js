@@ -75,6 +75,7 @@ function parseText(box){
 		let type =  getType(div.innerText)
 		div.className = type.name;
 		div.id = i;
+		
 	//	prevPos.rowID = pos.rowID;
   //  prevPos.offset = pos.offset;
   //  pos = getCaretPos();

@@ -10,10 +10,7 @@ function updateInputBox(newDivs){
     prevPos.rowID = pos.rowID;
     prevPos.offset = pos.offset;
     pos = getCaretPos();
-<<<<<<< HEAD
 //    console.log(newDivs);
-=======
->>>>>>> 21edb99267ebb359e993f5378b28e4afd4feb83c
     //console.log(pos);
     //notes.innerHTML="";
     for(div in newDivs){
