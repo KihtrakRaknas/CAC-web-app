@@ -20,6 +20,8 @@ function updateInputBox(newDivs){
           found = true;
           if(nod.innerText!=newDivs[div].text){
             nod.innerText=newDivs[div].text;
+            nod.dataset.Timestamp = Date.now();
+            console.log("TIMESTAMP");
           }
           break;
         }
@@ -28,6 +30,7 @@ function updateInputBox(newDivs){
         var pat = document.createElement("div");
         pat.innerText = newDivs[div].text;
         pat.dataset.uid = div;
+        pat.dataset.Timestamp = Date.now();
         console.log("ADDED "+pat);
         notes.appendChild(pat);
       }
