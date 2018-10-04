@@ -30,7 +30,12 @@ function upDocData(newVal){//updateLocal
 function uploadDocDataText(newVal){
   for(div of notes.childNodes){
     //docData.Content.divs[div.dataset.uid] = {text:div.innerText, index: parseInt(div.id)};
-    baseDoc.child("content").child("divs").child(div.dataset.uid).update({text:div.innerText, index: parseInt(div.id), Timestamp: div.dataset.Timestamp});//DOESN"T WORK YET
+    if(div.dataset.Timestamp>docData.content.divs[div.dataset.uid]["Timestamp"]){//FINISH
+      console.log(div.dataset.uid + " was pushed to the server");
+      baseDoc.child("Content").child("divs").child(div.dataset.uid).update({text:div.innerText, index: parseInt(div.id), Timestamp: div.dataset.Timestamp});//DOESN"T WORK YET
+    }else{
+      console.log("Local copy of "+div.dataset.uid + " is more up to date!");
+    }
     //console.log(div.dataset.uid);
   }
 //  console.log(docData);
