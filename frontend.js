@@ -33,6 +33,7 @@ function updateInputBox(newDivs){
 //    console.log(newDivs);
     console.log(pos);
     //notes.innerHTML="";
+		var newDiv = false;
     for(div in newDivs){
       var found = false;
       for(var nod of notes.childNodes){
@@ -53,6 +54,7 @@ function updateInputBox(newDivs){
         pat.dataset.Timestamp = newDivs[div].Timestamp;
         console.log("ADDED "+pat);
         notes.appendChild(pat);
+				newDiv = true;
       }
     }
     for(var nod of notes.childNodes){
@@ -67,6 +69,20 @@ function updateInputBox(newDivs){
         nod.remove();
       }
     }
+		var newNotesNode = notes.childNodes;
+		if(newDiv){//REORDER based on index
+				for (var i = 0; i < items.length; i++) {
+			    let value = items[i]
+			    // store the current item value so it can be placed right
+			    for (var j = i - 1; j > -1 && items[j] > value; j--) {
+			      // loop through the items in the sorted array (the items from the current to the beginning)
+			      // copy each item to the next one
+			      items[j + 1] = items[j]
+			    }
+			    // the last item we've reached should now hold the value of the currently sorted item
+			    items[j + 1] = value
+			  }
+		}//APART PREVIOUS CODE FOR newNotesNode!
     setCaretPosition(pos);
   });
 }
