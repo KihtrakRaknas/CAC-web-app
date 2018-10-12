@@ -125,7 +125,7 @@ function AfterInput(tim){
   //if(new Date().getTime()>=lastLocalTimestamp+1000){
     //lastLocalTimestamp = new Date().getTime()
     parseText(notes);
-    uploadDocDataText(notes.innerHTML);//should check to make sure that its not the same input
+//    uploadDocDataText(notes.innerHTML);//should check to make sure that its not the same input
   //}else if(tim>lastLocalTimestamp){
   //  setTimeout(AfterInput,100,tim);
   //}
