@@ -21,7 +21,7 @@ class Timer{
 	start(){
 		this.s = setInterval(this.update, 1000/30);
 	}
-	
+
 }
 
 function updateInputBox(newDivs){
@@ -31,7 +31,7 @@ function updateInputBox(newDivs){
     prevPos.offset = pos.offset;
     pos = getCaretPos();
 //    console.log(newDivs);
-    //console.log(pos);
+    console.log(pos);
     //notes.innerHTML="";
     for(div in newDivs){
       var found = false;
@@ -139,7 +139,9 @@ function getCaretData(position){
 
 // setting the caret with this info  is also standard
 var expect = null;
-function setCaretPosition(d){/*
+function setCaretPosition(d){
+  console.log(d);
+  /*
   var sel = window.getSelection(), range = document.createRange();
   console.log(getAllTextnodes(notes));
   range.setStart(getAllTextnodes(notes)[d.node].childNodes[0], d.position);
@@ -150,27 +152,31 @@ function setCaretPosition(d){/*
 //  console.log(d);
   //console.log(getAllTextnodes(notes));
   //console.log(getAllTextnodes(notes)[d.rowID]);
-//  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length);
-  if(getAllTextnodes(notes)[d.rowID].childNodes[0].length<d.offset){//The Node doesn't have enough charecters to recreate the cursor's location
-//    console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length-d.offset);
-  //  if(d.offset-getAllTextnodes(notes)[d.rowID].childNodes[0].length>1)
-    //  alert("Our Systems have detected button mashing");
-    expect = d.offset;
+  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].nodeValue);
+  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].nodeValue.length+"; off"+d.offset+"; "+strLength(notes.childNodes[d.rowID].childNodes[0].nodeValue));
+  if(getAllTextnodes(notes)[d.rowID].childNodes[0].length<d.offset){
+    setTimeout(tryAgain,1,d);
     d.offset = getAllTextnodes(notes)[d.rowID].childNodes[0].length;
-  }else if(expect!=null){
-    d.offset = expect;
-    expect = null;
   }
   range.setStart(getAllTextnodes(notes)[d.rowID].childNodes[0], d.offset);
   range.collapse(true);
   sel.removeAllRanges();
   sel.addRange(range);
+  console.log("NEW CURSOR SET");
   //getAllTextnodes(notes)[d.rowID].tabIndex = -1;
   //getAllTextnodes(notes)[d.rowID].focus();
 }
 
-var lastLocalTimestamp = 0;
+function tryAgain(da){
+  console.log(da);
+  da.offset+=1;
+  while(getAllTextnodes(notes)[da.rowID].childNodes[0].nodeValue.length-da.offset>0){
+    da.offset+=1;
+  }
+  setCaretPosition(da);
+}
 
+var temp;
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
     parseText(notes);
@@ -180,4 +186,11 @@ $( document ).ready(function(){
 
 });
 
-let trackCursor = setInterval(()=>{pos = getCaretPos()}, 1000/60);
+function strLength(s) {
+  var length = 0;
+  while (s[length] !== undefined)
+    length++;
+  return length;
+}
+
+//let trackCursor = setInterval(()=>{pos = getCaretPos()}, 1000/60);
