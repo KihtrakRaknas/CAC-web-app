@@ -28,11 +28,14 @@ function upDocData(newVal){//updateLocal
 }
 
 function uploadDocDataText(newVal){
+  console.log("test: "+docData.Content.divs["013791817749278179"]["Timestamp"]);
   for(div of notes.childNodes){
     //docData.Content.divs[div.dataset.uid] = {text:div.innerText, index: parseInt(div.id)};
-    if(div.dataset.Timestamp>docData.content.divs[div.dataset.uid]["Timestamp"]){//FINISH
-      console.log(div.dataset.uid + " was pushed to the server");
-      baseDoc.child("Content").child("divs").child(div.dataset.uid).update({text:div.innerText, index: parseInt(div.id), Timestamp: div.dataset.Timestamp});//DOESN"T WORK YET
+    console.log("test: "+docData.Content.divs["013791817749278179"]["Timestamp"]);
+    console.log(div.dataset.uid +"; Local:"+parseInt(div.dataset.Timestamp)+"; server: "+parseInt(docData.Content.divs[div.dataset.uid]["Timestamp"]));
+    if(parseInt(div.dataset.Timestamp)>parseInt(docData.Content.divs[div.dataset.uid]["Timestamp"])){//FINISH
+      console.log(" was pushed to the server");
+      baseDoc.child("Content").child("divs").child(div.dataset.uid).update({text:div.innerText, index: parseInt(div.id), Timestamp: parseInt(div.dataset.Timestamp)});//DOESN"T WORK YET
     }else{
       console.log("Local copy of "+div.dataset.uid + " is more up to date!");
     }

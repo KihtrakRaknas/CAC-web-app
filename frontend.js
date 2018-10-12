@@ -20,7 +20,7 @@ function updateInputBox(newDivs){
           found = true;
           if(nod.innerText!=newDivs[div].text){
             nod.innerText=newDivs[div].text;
-            nod.dataset.Timestamp = Date.now();
+            nod.dataset.Timestamp = newDivs[div].Timestamp;
             console.log("TIMESTAMP");
           }
           break;
@@ -30,7 +30,7 @@ function updateInputBox(newDivs){
         var pat = document.createElement("div");
         pat.innerText = newDivs[div].text;
         pat.dataset.uid = div;
-        pat.dataset.Timestamp = Date.now();
+        pat.dataset.Timestamp = newDivs[div].Timestamp;
         console.log("ADDED "+pat);
         notes.appendChild(pat);
       }
@@ -153,7 +153,9 @@ var lastLocalTimestamp = 0;
 
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
+    console.log("test: "+docData.Content.divs["013791817749278179"]["Timestamp"]);
     parseText(notes);
+    console.log("test: "+docData.Content.divs["013791817749278179"]["Timestamp"]);
     uploadDocDataText(notes.innerHTML);
   });
 
