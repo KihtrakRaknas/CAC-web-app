@@ -4,6 +4,26 @@ var caretPos = 2
 var prevPos = {rowID: 0, offset: 0};
 var pos = {rowID: 0, offset: 0};
 
+class Timer{
+	constructor(time){
+		this.time = time;
+		this.delay = time;
+		this.s = null;
+	}
+
+	update(){
+		this.time--;
+		if(this.time <= 0){
+			clearInterval(this.s);
+		}
+	}
+
+	start(){
+		this.s = setInterval(this.update, 1000/30);
+	}
+	
+}
+
 function updateInputBox(newDivs){
   $( document ).ready(function(){
     //parseText(notes);
@@ -156,6 +176,7 @@ $( document ).ready(function(){
     console.log("test: "+docData.Content.divs["013791817749278179"]["Timestamp"]);
     parseText(notes);
     console.log("test: "+docData.Content.divs["013791817749278179"]["Timestamp"]);
+	
     uploadDocDataText(notes.innerHTML);
   });
 
