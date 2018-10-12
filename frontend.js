@@ -173,10 +173,8 @@ var lastLocalTimestamp = 0;
 
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
-    console.log("test: "+docData.Content.divs["013791817749278179"]["Timestamp"]);
     parseText(notes);
-    console.log("test: "+docData.Content.divs["013791817749278179"]["Timestamp"]);
-	
+    //Local timestamp needs to be updated by this point
     uploadDocDataText(notes.innerHTML);
   });
 

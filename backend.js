@@ -28,10 +28,8 @@ function upDocData(newVal){//updateLocal
 }
 
 function uploadDocDataText(newVal){
-  console.log("test: "+docData.Content.divs["013791817749278179"]["Timestamp"]);
   for(div of notes.childNodes){
     //docData.Content.divs[div.dataset.uid] = {text:div.innerText, index: parseInt(div.id)};
-    console.log("test: "+docData.Content.divs["013791817749278179"]["Timestamp"]);
     console.log(div.dataset.uid +"; Local:"+parseInt(div.dataset.Timestamp)+"; server: "+parseInt(docData.Content.divs[div.dataset.uid]["Timestamp"]));
     if(parseInt(div.dataset.Timestamp)>parseInt(docData.Content.divs[div.dataset.uid]["Timestamp"])){//FINISH
       console.log(" was pushed to the server");
