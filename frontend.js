@@ -1,14 +1,52 @@
 var caretRow = 2
 var caretPos = 2
 
-var pos = {rowID: 0,offset: 0};;
+var prevPos = {rowID: 0, offset: 0};
+var pos = {rowID: 0, offset: 0};
 
-function updateInputBox(newText){
+function updateInputBox(newDivs){
   $( document ).ready(function(){
     //parseText(notes);
+    prevPos.rowID = pos.rowID;
+    prevPos.offset = pos.offset;
     pos = getCaretPos();
+//    console.log(newDivs);
     //console.log(pos);
-    notes.innerHTML=newText;
+    //notes.innerHTML="";
+    for(div in newDivs){
+      var found = false;
+      for(var nod of notes.childNodes){
+        if(div == nod.dataset.uid){
+          found = true;
+          if(nod.innerText!=newDivs[div].text){
+            nod.innerText=newDivs[div].text;
+            nod.dataset.Timestamp = Date.now();
+            console.log("TIMESTAMP");
+          }
+          break;
+        }
+      }
+      if(!found){
+        var pat = document.createElement("div");
+        pat.innerText = newDivs[div].text;
+        pat.dataset.uid = div;
+        pat.dataset.Timestamp = Date.now();
+        console.log("ADDED "+pat);
+        notes.appendChild(pat);
+      }
+    }
+    for(var nod of notes.childNodes){
+      var found = false;
+      for(div in newDivs){
+        if(nod.dataset.uid==div){
+          found = true;
+        }
+      }
+      if(!found){
+        console.log("REMOVED "+nod);
+        nod.remove();
+      }
+    }
     setCaretPosition(pos);
   });
 }
@@ -40,8 +78,8 @@ function getCaretPos(){
   if (window.getSelection().type!="None"){
     //console.log(window.getSelection().getRangeAt(0).startContainer.id+1);
     if(isNaN(parseInt(window.getSelection().getRangeAt(0).startContainer.parentElement.id))){//Needed when creating an empty new line
-      console.log("PARENT NOT #");
-      console.log(window.getSelection().getRangeAt(0));
+      //console.log("PARENT NOT #");
+      //console.log(window.getSelection().getRangeAt(0));
       return {rowID: parseInt(window.getSelection().getRangeAt(0).startContainer.id),offset: window.getSelection().getRangeAt(0).startOffset};
     }
     return {rowID: parseInt(window.getSelection().getRangeAt(0).startContainer.parentElement.id),offset: window.getSelection().getRangeAt(0).startOffset};
@@ -68,8 +106,8 @@ function getCaretData(position){
       position -= nodes[n].innerText.length;
     } else {
       node = n;
-      console.log(n)
-      console.log("pos"+position)
+    //  console.log(n)
+  //    console.log("pos"+position)
       break;
     }
   }
@@ -89,14 +127,14 @@ function setCaretPosition(d){/*
   sel.removeAllRanges();
   sel.addRange(range);*/
   var sel = window.getSelection(), range = document.createRange();
-  console.log(d);
+//  console.log(d);
   //console.log(getAllTextnodes(notes));
   //console.log(getAllTextnodes(notes)[d.rowID]);
-  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length);
+//  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length);
   if(getAllTextnodes(notes)[d.rowID].childNodes[0].length<d.offset){//The Node doesn't have enough charecters to recreate the cursor's location
-    console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length-d.offset);
-    if(d.offset-getAllTextnodes(notes)[d.rowID].childNodes[0].length>1)
-      alert("Our Systems have detected button mashing");
+//    console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length-d.offset);
+  //  if(d.offset-getAllTextnodes(notes)[d.rowID].childNodes[0].length>1)
+    //  alert("Our Systems have detected button mashing");
     expect = d.offset;
     d.offset = getAllTextnodes(notes)[d.rowID].childNodes[0].length;
   }else if(expect!=null){
@@ -115,18 +153,10 @@ var lastLocalTimestamp = 0;
 
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
-        AfterInput(new Date().getTime()) ;
+    parseText(notes);
+    uploadDocDataText(notes.innerHTML);
   });
-
 
 });
 
-function AfterInput(tim){
-  //if(new Date().getTime()>=lastLocalTimestamp+1000){
-    //lastLocalTimestamp = new Date().getTime()
-    parseText(notes);
-//    uploadDocDataText(notes.innerHTML);//should check to make sure that its not the same input
-  //}else if(tim>lastLocalTimestamp){
-  //  setTimeout(AfterInput,100,tim);
-  //}
-}
+let trackCursor = setInterval(()=>{pos = getCaretPos()}, 1000/60);

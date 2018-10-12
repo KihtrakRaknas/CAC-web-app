@@ -17,19 +17,30 @@ initDoc("(DocID)");
 
 //exitDoc("(DocID)");
 
-function upDocData(newVal){
+function upDocData(newVal){//updateLocal
   docData=newVal;
   if(docData==null){
-    console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
+//    console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
   }else{
-    updateInputBox(docData.Content["Raw Text"]);
+    updateInputBox(docData.Content.divs);
     //setCaretToCurPos();//TODO: FIX THIS
   }
 }
 
 function uploadDocDataText(newVal){
-  docData.Content["Raw Text"] = newVal;
-  updateServer();
+  for(div of notes.childNodes){
+    //docData.Content.divs[div.dataset.uid] = {text:div.innerText, index: parseInt(div.id)};
+    if(div.dataset.Timestamp>docData.content.divs[div.dataset.uid]["Timestamp"]){//FINISH
+      console.log(div.dataset.uid + " was pushed to the server");
+      baseDoc.child("Content").child("divs").child(div.dataset.uid).update({text:div.innerText, index: parseInt(div.id), Timestamp: div.dataset.Timestamp});//DOESN"T WORK YET
+    }else{
+      console.log("Local copy of "+div.dataset.uid + " is more up to date!");
+    }
+    //console.log(div.dataset.uid);
+  }
+//  console.log(docData);
+  //docData.Content["Raw Text"] = newVal;
+  //updateServer();
 }
 
 function updateServer(){
@@ -37,10 +48,14 @@ function updateServer(){
   baseDoc.update(docData);
 }
 
+function updateServerDiv(){
+
+}
+
 function initDoc(DocID){
   baseDoc = base.ref('/Docs/'+DocID);
   baseDoc.on('value', function(snapshot) {
-    console.log(snapshot.val());
+//    console.log(snapshot.val());
     upDocData(snapshot.val());
   });
 }
