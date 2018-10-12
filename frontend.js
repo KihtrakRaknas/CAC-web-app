@@ -152,13 +152,14 @@ function setCaretPosition(d){
 //  console.log(d);
   //console.log(getAllTextnodes(notes));
   //console.log(getAllTextnodes(notes)[d.rowID]);
-  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].nodeValue);
-  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].nodeValue.length+"; off"+d.offset+"; "+strLength(notes.childNodes[d.rowID].childNodes[0].nodeValue));
-  if(getAllTextnodes(notes)[d.rowID].childNodes[0].length<d.offset){
+	var childNodeIndex = getAllTextnodes(notes)[d.rowID].childNodes.length-1;
+  console.log(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].nodeValue);
+  console.log(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].nodeValue.length+"; off"+d.offset+"; "+strLength(notes.childNodes[d.rowID].childNodes[0].nodeValue));
+  if(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].length<d.offset){
     setTimeout(tryAgain,1,d);
-    d.offset = getAllTextnodes(notes)[d.rowID].childNodes[0].length;
+    d.offset = getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].length;
   }
-  range.setStart(getAllTextnodes(notes)[d.rowID].childNodes[0], d.offset);
+  range.setStart(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex], d.offset);
   range.collapse(true);
   sel.removeAllRanges();
   sel.addRange(range);
@@ -170,7 +171,7 @@ function setCaretPosition(d){
 function tryAgain(da){
   console.log(da);
   da.offset+=1;
-  while(getAllTextnodes(notes)[da.rowID].childNodes[0].nodeValue.length-da.offset>0){
+  while(getAllTextnodes(notes)[da.rowID].childNodes[getAllTextnodes(notes)[d.rowID].childNodes.length-1].nodeValue.length-da.offset>0){
     da.offset+=1;
   }
   setCaretPosition(da);
