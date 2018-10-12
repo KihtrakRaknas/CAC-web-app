@@ -62,6 +62,7 @@ notes.onkeydown = (event)=>{
 			notes.childNodes[getCaretPos().rowID].dataset.uid = id();
 		}
 	}
+	notes.childNodes[getCaretPos().rowID].dataset.Timestamp = Date.now();
 }
 //////////////////////////////
 function parseText(box){
@@ -75,7 +76,6 @@ function parseText(box){
 		let type =  getType(div.innerText)
 		div.className = type.name;
 		div.id = i;
-		div.dataset.Timestamp = (new Date).getTime();		
 	//	prevPos.rowID = pos.rowID;
   //  prevPos.offset = pos.offset;
   //  pos = getCaretPos();
