@@ -62,7 +62,7 @@ notes.onkeydown = (event)=>{
 			notes.childNodes[getCaretPos().rowID].dataset.uid = id();
 		}
 	}
-	notes.childNodes[getCaretPos().rowID].dataset.Timestamp = Date.now();
+//	notes.childNodes[getCaretPos().rowID].dataset.Timestamp = Date.now();
 }
 //////////////////////////////
 function parseText(box){

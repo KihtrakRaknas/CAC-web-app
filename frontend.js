@@ -4,6 +4,8 @@ var caretPos = 2
 var prevPos = {rowID: 0, offset: 0};
 var pos = {rowID: 0, offset: 0};
 
+let oldDoc = null;
+
 class Timer{
 	constructor(time){
 		this.time = time;
@@ -181,3 +183,16 @@ $( document ).ready(function(){
 });
 
 let trackCursor = setInterval(()=>{pos = getCaretPos()}, 1000/60);
+let trackChanges = setInterval( ()=>{
+	let newDoc = null;
+	if(oldDoc !== null){
+		newDoc = Array.from(notes.childNodes).slice(0);
+		for(let i=0;i<newDoc.length;i++){
+			if(oldDoc[i] === undefined || oldDoc[i].dataset.uid !== newDoc[i].dataset.uid || oldDoc[i].innerText !== newDoc[i].innerText){
+				newDoc[i].dataset.Timestamp = Date.now();
+				console.log("old", oldDoc[i], "new", newDoc[i]);
+			}
+		}
+	}
+	oldDoc = Array.from(notes.childNodes).slice(0);
+}, 1000/60);
