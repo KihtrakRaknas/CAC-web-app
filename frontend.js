@@ -5,6 +5,7 @@ var prevPos = {rowID: 0, offset: 0};
 var pos = {rowID: 0, offset: 0};
 
 let oldDoc = null;
+let focusedElement = notes;
 
 class Timer{
 	constructor(time){
@@ -176,23 +177,11 @@ var lastLocalTimestamp = 0;
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
     parseText(notes);
-    //Local timestamp needs to be updated by this point
+	console.log(focusedElement);
+	focusedElement.dataset.Timestamp = Date.now();
     uploadDocDataText(notes.innerHTML);
   });
 
 });
 
 let trackCursor = setInterval(()=>{pos = getCaretPos()}, 1000/60);
-let trackChanges = setInterval( ()=>{
-	let newDoc = null;
-	if(oldDoc !== null){
-		newDoc = Array.from(notes.childNodes).slice(0);
-		for(let i=0;i<newDoc.length;i++){
-			if(oldDoc[i] === undefined || oldDoc[i].dataset.uid !== newDoc[i].dataset.uid || oldDoc[i].innerText !== newDoc[i].innerText){
-				newDoc[i].dataset.Timestamp = Date.now();
-				console.log("old", oldDoc[i], "new", newDoc[i]);
-			}
-		}
-	}
-	oldDoc = Array.from(notes.childNodes).slice(0);
-}, 1000/60);
