@@ -4,6 +4,9 @@ var caretPos = 2
 var prevPos = {rowID: 0, offset: 0};
 var pos = {rowID: 0, offset: 0};
 
+let oldDoc = null;
+let focusedElement = notes;
+
 class Timer{
 	constructor(time){
 		this.time = time;
@@ -31,9 +34,8 @@ function updateInputBox(newDivs){
     prevPos.offset = pos.offset;
     pos = getCaretPos();
 //    console.log(newDivs);
-    console.log(pos);
+    //console.log(pos);
     //notes.innerHTML="";
-		var newDiv = false;
     for(div in newDivs){
       var found = false;
       for(var nod of notes.childNodes){
@@ -56,7 +58,6 @@ function updateInputBox(newDivs){
         pat.dataset.index = newDivs[div].index;
         console.log("ADDED "+pat);
         notes.appendChild(pat);
-				newDiv = true;
       }
     }
     for(var nod of notes.childNodes){
@@ -161,9 +162,7 @@ function getCaretData(position){
 
 // setting the caret with this info  is also standard
 var expect = null;
-function setCaretPosition(d){
-  console.log(d);
-  /*
+function setCaretPosition(d){/*
   var sel = window.getSelection(), range = document.createRange();
   console.log(getAllTextnodes(notes));
   range.setStart(getAllTextnodes(notes)[d.node].childNodes[0], d.position);
@@ -174,46 +173,35 @@ function setCaretPosition(d){
 //  console.log(d);
   //console.log(getAllTextnodes(notes));
   //console.log(getAllTextnodes(notes)[d.rowID]);
-	var childNodeIndex = getAllTextnodes(notes)[d.rowID].childNodes.length-1;
-  console.log(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].nodeValue);
-  console.log(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].nodeValue.length+"; off"+d.offset+"; "+strLength(notes.childNodes[d.rowID].childNodes[0].nodeValue));
-  if(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].length<d.offset){
-    setTimeout(tryAgain,1,d);
-    d.offset = getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].length;
+//  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length);
+  if(getAllTextnodes(notes)[d.rowID].childNodes[0].length<d.offset){//The Node doesn't have enough charecters to recreate the cursor's location
+//    console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length-d.offset);
+  //  if(d.offset-getAllTextnodes(notes)[d.rowID].childNodes[0].length>1)
+    //  alert("Our Systems have detected button mashing");
+    expect = d.offset;
+    d.offset = getAllTextnodes(notes)[d.rowID].childNodes[0].length;
+  }else if(expect!=null){
+    d.offset = expect;
+    expect = null;
   }
-  range.setStart(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex], d.offset);
+  range.setStart(getAllTextnodes(notes)[d.rowID].childNodes[0], d.offset);
   range.collapse(true);
   sel.removeAllRanges();
   sel.addRange(range);
-  console.log("NEW CURSOR SET");
   //getAllTextnodes(notes)[d.rowID].tabIndex = -1;
   //getAllTextnodes(notes)[d.rowID].focus();
 }
 
-function tryAgain(da){
-  console.log(da);
-  da.offset+=1;
-  while(getAllTextnodes(notes)[da.rowID].childNodes[getAllTextnodes(notes)[d.rowID].childNodes.length-1].nodeValue.length-da.offset>0){
-    da.offset+=1;
-  }
-  setCaretPosition(da);
-}
+var lastLocalTimestamp = 0;
 
-var temp;
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
     parseText(notes);
-    //Local timestamp needs to be updated by this point
+	console.log(focusedElement);
+	focusedElement.dataset.Timestamp = Date.now();
     uploadDocDataText(notes.innerHTML);
   });
 
 });
 
-function strLength(s) {
-  var length = 0;
-  while (s[length] !== undefined)
-    length++;
-  return length;
-}
-
-//let trackCursor = setInterval(()=>{pos = getCaretPos()}, 1000/60);
+let trackCursor = setInterval(()=>{pos = getCaretPos()}, 1000/60);

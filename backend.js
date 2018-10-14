@@ -23,6 +23,11 @@ function upDocData(newVal){//updateLocal
 //    console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
   }else{
     updateInputBox(docData.Content.divs);
+	for(let div of notes.childNodes){
+		console.log("1");
+		div.tabIndex = 0;
+		div.onfocus = ()=>{console.log(document.activeElement, "focus!")};
+	}
     //setCaretToCurPos();//TODO: FIX THIS
   }
 }

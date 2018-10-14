@@ -62,7 +62,7 @@ notes.onkeydown = (event)=>{
 			notes.childNodes[getCaretPos().rowID].dataset.uid = id();
 		}
 	}
-	notes.childNodes[getCaretPos().rowID].dataset.Timestamp = Date.now();
+//	notes.childNodes[getCaretPos().rowID].dataset.Timestamp = Date.now();
 }
 //////////////////////////////
 function parseText(box){
@@ -90,7 +90,15 @@ function parseText(box){
 			console.log("Prev Pos", pos, "activated");
 		//	console.log(div.dataset.uid);
 		}
-
+		div.tabIndex = 0;
+		for(let div of notes.childNodes){
+	        console.log("1");
+		    div.tabIndex = 0;
+			div.onfocus = ()=>{
+				console.log(document.activeElement, "focus!")
+				focusedElement = document.activeElement;
+			}
+		}
 		type.style(div);
 		let lDiv = document.createElement("div");
 		lDiv.innerText = type.name==="default"?"\n":type.name
