@@ -36,6 +36,7 @@ function updateInputBox(newDivs){
 //    console.log(newDivs);
     //console.log(pos);
     //notes.innerHTML="";
+    var newDiv = false;
     for(div in newDivs){
       var found = false;
       for(var nod of notes.childNodes){
@@ -57,6 +58,7 @@ function updateInputBox(newDivs){
         pat.dataset.Timestamp = newDivs[div].Timestamp;
         pat.dataset.index = newDivs[div].index;
         console.log("ADDED "+pat);
+        newDiv = true;
         notes.appendChild(pat);
       }
     }
