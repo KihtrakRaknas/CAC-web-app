@@ -37,10 +37,6 @@
                 window.location = "https://kihtrakraknas.github.io/CAC-web-app/?code="+document.getElementById("code").value;
             }
         });
-        .on('value', function(snapshot) {
-      //    console.log(snapshot.val());
-          upDocData(snapshot.val());
-        });
         function randCheck(){
           var rand = Math.random().toString().substring(2);
           firebase.database().ref('Docs').once("value",function(snap){
@@ -54,9 +50,11 @@
               continu(rand);
           });
         }
+
         function newDoc(){
           randCheck();
         }
+
         function continu(rand){
           window.location = "https://kihtrakraknas.github.io/CAC-web-app/?code="+rand
         }
