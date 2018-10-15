@@ -10,10 +10,9 @@ class InfoType{
 //Though it might be modified and used later for games
 class InfoObject{
 	constructor(HTMLElement, infoType){
-		this.html = HTMLElement;
-		this.info = HTMLElement.innerText;
 		this.type = infoType;
-		this.id = id();
+		this.infoOne = "";
+		this.infoTwo = "";
 	}
 }
 
@@ -109,6 +108,13 @@ function parseText(box){
   //box.innerHTML = inhtml;
 	console.log("TEST PARSE IS DONE");
   return types;
+}
+
+function getData(){
+	let infoObjects = [];
+	for(let note of notes.childNodes){
+		let str = note.innerText;
+	}
 }
 
 function id(){

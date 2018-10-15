@@ -216,4 +216,7 @@ $( document ).ready(function(){
 
 });
 
-let trackCursor = setInterval(()=>{pos = getCaretPos()}, 1000/60);
+let trackCursor = setInterval(()=>{
+	pos = getCaretPos();
+	notes.childNodes[getCaretPos().rowID].focus();
+}, 1000/60);
