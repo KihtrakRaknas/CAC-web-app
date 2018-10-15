@@ -27,8 +27,7 @@
         </div>
       </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
     <script>
         document.getElementById("code").addEventListener("keydown", function(e) {
             console.log('Enter');
@@ -46,7 +45,7 @@
           messagingSenderId: "398640011671"
         };
         firebase.initializeApp(config);
-        
+
         function randCheck(){
           var rand = Math.random().toString().substring(2);
           firebase.database().ref('Docs').once("value",function(snap){
