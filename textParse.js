@@ -68,6 +68,9 @@ for(let box of checks){
 		}
     }
 }
+let link = document.querySelector("a").onclick = ()=>{
+	window.location.href = `flashcards.html?terms=${encodeURIComponent(JSON.stringify(getTerms(parseData())))}&defs=${encodeURIComponent(JSON.stringify(getDefs(parseData())))}`
+}
 //////////////////////////////
 notes.onkeydown = (event)=>{
 	let key = event.which || event.charCode;
@@ -142,6 +145,22 @@ function parseData(){
 		}
 	}
 	return parsedData;
+}
+
+function getTerms(parsedData){
+	let list = [];
+	for(let term of parsedData){
+		list.push(term.infoOne);
+	}
+	return list;
+}
+
+function getDefs(parsedData){
+	let list = [];
+	for(term of parsedData){
+		list.push(term.infoTwo)
+	}
+	return list
 }
 
 function filterData(){
