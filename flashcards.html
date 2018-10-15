@@ -1,0 +1,166 @@
+<html>
+	<head>
+		<title>
+		Flashcards
+		</title>
+		
+		<style type="text/css">
+#page {border:2px solid; width:600px; text-align:center; margin:0px auto; background-color:#ffe169;}
+#left-arrow {float:left; margin-right:50px; margin-left:60px;}
+#left-arrow button {height:300px; background-color:#71E2FF}
+#card {float:left; background-color:#FFFFFF;}
+#right-arrow {float:left; margin-left:50px;}
+#right-arrow button {height:300px;background-color:#71E2FF;}
+#cardarea {border:1px solid;}
+#controls {clear:both; background-color:#DEDEDE; width:300px; margin-left:145px;}
+		</style>
+	<head>
+	
+	<body style="font-size:150%;">
+		<h1 style="font-size:100%;text-align:center;font-family:sans-serif;font-size:110%;">Flashcards</h1>
+		<div id="page"><!--Page-->
+			<div id="left-arrow"><!--lArrow-->
+				<p><button type="button" onclick="goLeft()">&lt;--</button></p>
+			</div><!--lArrow-->
+			
+			<div id="flashcards"><!--Flashcards-->
+				<p id="card" onclick="flipCard()" style="width:300px;height:300px;border:1px solid;text-align:center;">...</p>
+			</div><!--Flashcards-->
+			
+			<div id="right-arrow"><!--rArrow-->
+				<p><button type="button" onclick="goRight()">--&gt;</button></p>
+			</div><!--rArrow-->
+			
+			<div id="controls"><!--Ctrl Panel-->
+		
+			<br /><button type="button" onclick ="switchMode()">Switch Mode</button><br /><br />
+			<input type="text" id="gocard" />
+			<input type="submit" value="Go to Card" onclick="goToCard()" />
+			<p id="numofcard">...</p>
+		</div><!--Page-->
+		<script>
+
+	var u = new URLSearchParams(window.location.search);
+
+	var termList = JSON.parse(decodeURIComponent(u.get('terms')));
+	var defList = JSON.parse(decodeURIComponent(u.get('defs')));
+				
+	var defFirst = false;
+	var card = document.getElementById("card");
+	var numcard = document.getElementById("numofcard");
+	var cardNo = 1;
+
+function loadCards() {				
+ 
+
+	if (defFirst == false) {
+		card.innerHTML = termList[cardNo - 1];
+		numcard.innerHTML = cardNo + "/" + termList.length;
+	} else if (defFirst == true) {
+		card.innerHTML = defList[cardNo - 1];
+		numcard.innerHTML = cardNo + "/" + termList.length;
+	}
+		
+}
+
+function goRight () {
+
+	if (cardNo == termList.length) {
+		cardNo = 1;
+	} else {
+		cardNo += 1;
+	}
+	
+	if (defFirst == false) {
+		card.innerHTML = termList[cardNo - 1];
+		numcard.innerHTML = cardNo + "/" + termList.length;
+	} else if (defFirst == true) {
+		card.innerHTML = defList[cardNo - 1];
+		numcard.innerHTML = cardNo + "/" + termList.length;
+	}
+	
+	
+}
+	
+function goLeft () {
+
+	if (cardNo == 1) {
+		cardNo = termList.length;
+	} else {
+		cardNo -= 1;
+	}
+	
+	if (defFirst == false) {
+		card.innerHTML = termList[cardNo - 1];
+		numcard.innerHTML = cardNo + "/" + termList.length;
+	} else if (defFirst == true) {
+		card.innerHTML = defList[cardNo - 1];
+		numcard.innerHTML = cardNo + "/" + termList.length;
+	}
+	
+	
+}
+
+function flipCard() {
+
+		if (defFirst == false) {
+			if (card.innerHTML == defList[cardNo - 1]) {
+				card.innerHTML = termList[cardNo - 1];
+			} else {
+			card.innerHTML = defList[cardNo - 1];
+			numcard.innerHTML = cardNo + "/" + termList.length;
+			}
+	} else if (defFirst == true) {
+			if (card.innerHTML == termList[cardNo - 1]) {
+				card.innerHTML = defList[cardNo - 1];
+			} else {
+			card.innerHTML = termList[cardNo - 1];
+			numcard.innerHTML = cardNo + "/" + termList.length;
+			}
+	}
+}
+
+function switchMode() {
+
+if (defFirst == false) {
+	defFirst = true;
+} else {
+	defFirst = false;
+}
+	if (defFirst == false) {
+		card.innerHTML = termList[cardNo - 1];
+		numcard.innerHTML = cardNo + "/" + termList.length;
+	} else if (defFirst == true) {
+		card.innerHTML = defList[cardNo - 1];
+		numcard.innerHTML = cardNo + "/" + termList.length;
+	}
+	
+	
+}
+// --------------------------------------------------------------------------------
+function goToCard() {
+
+	var c = document.getElementById("gocard").value;
+	cardNo = Number(c);
+	
+
+	if (cardNo < 1 || cardNo > termList.length || isNaN(cardNo) == true) {
+		alert("You did not enter a valid number.");
+		
+	} 
+	else {
+		if (defFirst == false) {
+			card.innerHTML = termList[cardNo - 1];
+			numcard.innerHTML = cardNo + "/" + termList.length;
+		} else if (defFirst == true) {
+			card.innerHTML = defList[cardNo - 1];
+			numcard.innerHTML = cardNo + "/" + termList.length;
+		}
+	} 
+}
+//---------------------------------------------------------------------------------
+window.onload = loadCards();
+		
+		</script>
+	</body>
+</html>
