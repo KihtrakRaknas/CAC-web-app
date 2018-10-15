@@ -37,6 +37,16 @@
                 window.location = "https://kihtrakraknas.github.io/CAC-web-app/?code="+document.getElementById("code").value;
             }
         });
+        var config = {
+          apiKey: "AIzaSyBgTk4vbqSgP2s8Rqub2Ls3NqVA3rSraHY",
+          authDomain: "cac-web-app.firebaseapp.com",
+          databaseURL: "https://cac-web-app.firebaseio.com",
+          projectId: "cac-web-app",
+          storageBucket: "cac-web-app.appspot.com",
+          messagingSenderId: "398640011671"
+        };
+        firebase.initializeApp(config);
+        
         function randCheck(){
           var rand = Math.random().toString().substring(2);
           firebase.database().ref('Docs').once("value",function(snap){
