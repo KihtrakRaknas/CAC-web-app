@@ -51,7 +51,23 @@ function getType(line){
 	}
 	return defaultType;
 }
-
+let checkedTypes = []; 
+let checks = document.querySelectorAll('[type="checkbox"]');
+for(let box of checks){
+    box.onchange = ()=>{
+        if(box.checked === true){
+            checkedTypes.push(box.id);
+        } else {
+            checkedTypes.splice(checkedTypes.indexOf(box.id), 1);
+        }
+		console.log(checkedTypes);
+		if(checkedTypes.length > 0){
+			filterData(...checkedTypes);
+		} else {
+			restore();
+		}
+    }
+}
 //////////////////////////////
 notes.onkeydown = (event)=>{
 	let key = event.which || event.charCode;

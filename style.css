@@ -27,3 +27,7 @@ body{
 		outline: none;
 		background-color: #EEEEEE;
 	}
+	
+	input{
+		margin:10px;
+	}

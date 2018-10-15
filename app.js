@@ -3,6 +3,7 @@ let notes = document.getElementById("content");
 
 notes.tabIndex = -1;
 
+
 /*let updater = setInterval(()=>{
   //notes.innerHTML = segmentText(notes.innerText);
   console.log(parseText(notes)/*);
