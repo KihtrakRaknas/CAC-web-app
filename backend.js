@@ -35,7 +35,7 @@ function upDocData(newVal){//updateLocal
   if(docData==null){
     console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
     baseDoc.update({
-      Content: {divs: {"00000":{Timestamp: 0, index:0,text:"notes:"}}}
+      Content: {divs: {"00000":{Timestamp: 0, index:0,text:"Notes:"}}}
     });
   }else{
     updateInputBox(docData.Content.divs);
