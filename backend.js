@@ -24,7 +24,8 @@ if(getUrlVars()["doc"] != undefined){
   document.getElementById("code").innerText = getUrlVars()["doc"];
   initDoc(getUrlVars()["doc"]);
 }else{
-  window.location = "file:///C:/Users/karth/Documents/GitHub/CAC-web-app/website.html"
+  //Switching between docs
+  window.location = "https://kihtrakraknas.github.io/CAC-web-app/landing.html"
 }
 
 //exitDoc("(DocID)");
