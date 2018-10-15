@@ -19,6 +19,7 @@ body{
     }
 
 	#tool{
+    float: left;
 		width:15vw;
 	}
 
