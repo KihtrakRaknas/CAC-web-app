@@ -18,3 +18,8 @@
 	#labels{
 		width:15vw;
 	}
+
+	div:focus {
+		outline: none;
+		background-color: #EEEEEE;
+	}
