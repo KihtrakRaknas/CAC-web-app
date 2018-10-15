@@ -1,7 +1,9 @@
     .container {
       height: 100vh;
     }
-	
+body{
+  background-color: #f2f2f2;
+}
 	.main {
 		float: left;
 		border:1px solid;
@@ -12,10 +14,11 @@
 
     #content{
 	  width: 80vw;
+    background-color: white;
       /*max-height: 800px;*/
     }
 
-	#labels{
+	#tool{
 		width:15vw;
 	}
 
