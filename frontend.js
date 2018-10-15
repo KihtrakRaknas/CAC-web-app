@@ -179,6 +179,7 @@ $( document ).ready(function(){
     parseText(notes);
 	console.log(focusedElement);
 	focusedElement.dataset.Timestamp = Date.now();
+	console.log(focusedElement, focusedElement.dataset.Timestamp);
     uploadDocDataText(notes.innerHTML);
   });
 
