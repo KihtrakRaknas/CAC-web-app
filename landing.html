@@ -14,7 +14,7 @@
     <div class="container-fluid" style="height:100%!important width:100%">
       <div class="row" style="height:100%!important">
         <div class="col-6" style="margin:0;">
-          <button class="btn btn-primary" style="height:99vh!important; display: block; margin: 2px; width:100%;"><p class="display-1">&plus;</p></button>
+          <button id = "plus" class="btn btn-primary" style="height:99vh!important; display: block; margin: 2px; width:100%;" onclick="newDoc();"><p class="display-1">&plus;</p></button>
         </div>
         <div class="col-6" style="margin:0;">
           <div class="btn btn-info" style="height:99vh!important; display: block; margin: 2px; width:100%!important; display: table; text-align: center;">
@@ -37,6 +37,29 @@
                 window.location = "https://kihtrakraknas.github.io/CAC-web-app/?code="+document.getElementById("code").value;
             }
         });
+        .on('value', function(snapshot) {
+      //    console.log(snapshot.val());
+          upDocData(snapshot.val());
+        });
+        function randCheck(){
+          var rand = Math.random().toString().substring(2);
+          firebase.database().ref('Docs').once("value",function(snap){
+            var found = false;
+            for(key in snap.val())
+              if(key == rand)
+                found = true;
+            if(found==true)
+              randCheck()
+            else
+              continu(rand);
+          });
+        }
+        function newDoc(){
+          randCheck();
+        }
+        function continu(rand){
+          window.location = "https://kihtrakraknas.github.io/CAC-web-app/?code="+rand
+        }
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
