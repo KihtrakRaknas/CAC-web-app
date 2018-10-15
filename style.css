@@ -16,6 +16,7 @@ body{
 	  width: 80vw;
     background-color: white;
       /*max-height: 800px;*/
+      margin-left: .000001vw;
     }
 
 	#tool{
@@ -27,4 +28,3 @@ body{
 		outline: none;
 		background-color: #EEEEEE;
 	}
-	
