@@ -24,7 +24,7 @@ class Timer{
 	start(){
 		this.s = setInterval(this.update, 1000/30);
 	}
-	
+
 }
 
 function updateInputBox(newDivs){
@@ -36,6 +36,7 @@ function updateInputBox(newDivs){
 //    console.log(newDivs);
     //console.log(pos);
     //notes.innerHTML="";
+    var newDiv = false;
     for(div in newDivs){
       var found = false;
       for(var nod of notes.childNodes){
@@ -44,6 +45,7 @@ function updateInputBox(newDivs){
           if(nod.innerText!=newDivs[div].text){
             nod.innerText=newDivs[div].text;
             nod.dataset.Timestamp = newDivs[div].Timestamp;
+            nod.dataset.index = newDivs[div].index;
             console.log("TIMESTAMP");
           }
           break;
@@ -54,7 +56,9 @@ function updateInputBox(newDivs){
         pat.innerText = newDivs[div].text;
         pat.dataset.uid = div;
         pat.dataset.Timestamp = newDivs[div].Timestamp;
+        pat.dataset.index = newDivs[div].index;
         console.log("ADDED "+pat);
+        newDiv = true;
         notes.appendChild(pat);
       }
     }
@@ -70,6 +74,24 @@ function updateInputBox(newDivs){
         nod.remove();
       }
     }
+
+		if(newDiv){//REORDER based on index if new div is present
+        var newNotesNode = Array.from(notes.childNodes).slice(0);
+				for (var i = 0; i < newNotesNode.length; i++) {
+			    var value = parseInt(newNotesNode[i].dataset.index);
+          var temp = newNotesNode[i];
+			    for (var j = i - 1; j > -1 && parseInt(newNotesNode[j].dataset.index) > value; j--) {
+			      newNotesNode[j + 1] = newNotesNode[j];
+			    }
+			    newNotesNode[j + 1] = temp;
+			  }
+        var newNotes = "";
+        for(addNode of newNotesNode){
+          newNotes += addNode.outerHTML;
+          console.log(addNode);
+        }
+        notes.innerHTML = newNotes;
+		}
     setCaretPosition(pos);
   });
 }
