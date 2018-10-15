@@ -70,11 +70,16 @@ function parseText(box){
   let inhtml = "";
   labels.innerText = "";
   defaultType.style(labels);
+	var usedindexs = [];
   for(let i=0;i<box.childNodes.length;i++){
 		let div = box.childNodes[i];
 		let type =  getType(div.innerText)
 		div.className = type.name;
 		div.id = i;
+
+		if(usedindexs.indexOf(div.dataset.index)!=-1)
+			div.dataset.index = i
+		usedindexs.push(div.dataset.index)
 	//	prevPos.rowID = pos.rowID;
   //  prevPos.offset = pos.offset;
   //  pos = getCaretPos();
