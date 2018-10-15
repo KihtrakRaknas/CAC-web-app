@@ -21,8 +21,8 @@ function getUrlVars() {
     return vars;
 }
 if(getUrlVars()["doc"] != undefined){
-  document.getElementById("code").innerText = getUrlVars()["doc"];
-  initDoc(getUrlVars()["doc"]);
+  document.getElementById("code").innerText = getUrlVars()["code"];
+  initDoc(getUrlVars()["code"]);
 }else{
   //Switching between docs
   window.location = "https://kihtrakraknas.github.io/CAC-web-app/landing.html"
