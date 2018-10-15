@@ -9,10 +9,10 @@ class InfoType{
 //I created this class now thinking I'd use it, but it turns out we don't need it now
 //Though it might be modified and used later for games
 class InfoObject{
-	constructor(HTMLElement, infoType){
+	constructor(infoType, i1, i2){
 		this.type = infoType;
-		this.infoOne = "";
-		this.infoTwo = "";
+		this.infoOne = i1;
+		this.infoTwo = i2;
 	}
 }
 
@@ -113,6 +113,19 @@ function parseText(box){
   //box.innerHTML = inhtml;
 	console.log("TEST PARSE IS DONE");
   return types;
+}
+
+function parseData(){
+	let parsedData = [];
+	for(let note of notes.childNodes){
+		if(note.className !== "default"){
+			let str = note.innerText
+			let keyword = infoTypes[infoTypes.indexOf(getType(note.innerText))].keyword;
+			let info = str.split(keyword);
+			parsedData.push(new InfoObject(note.className, info[0], info[1]));
+		}
+	}
+	return parsedData;
 }
 
 function filterData(){
