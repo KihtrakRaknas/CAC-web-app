@@ -5,27 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css" />
-    <title>Hello, world!</title>
+    <title>SmartNotes</title>
   </head>
   <body>
     <div class="container-fluid">
-      <h1 class = "text-center">SmartNotes</h1><h6 style="text-align: left; position:absolute; right:0;top:0;" data-toggle="tooltip" data-placement="bottom" title="This is your document ID">Code: <span id="code"></span></h6>
+      <h1 class = "text-center">SmartNotes</h1><h6 class ="d-none d-md-block"style="text-align: left; position:absolute; right:0;top:0;" data-toggle="tooltip" data-placement="bottom" title="This is your document ID">Code: <span id="code"></span></h6>
       <div class="row">
         <div class="col-10">
           <div id='content' class ="main" contenteditable><div>	Notes</div></div>
         </div>
 
-  	     <div id='tool' class = "col-2 d-none d-md-block"><h3 class = "text-center">FILTER</h3>
-           <ul id="check-list-box" class="list-group checked-list-box">
-               <li class="list-group-item" data-color="success">&emsp;<input type="checkbox" class="form-check-input" id="equation"><strong>Equation</strong></li>
-               <li class="list-group-item" data-color="success">&emsp;<input type="checkbox" class="form-check-input" id="definition"><strong>Definition</strong></li>
-               <li class="list-group-item" data-color="success">&emsp;<input type="checkbox" class="form-check-input" id="causal"><strong>Causal</strong></li>
-             </ul>
-            <br>
-            <h3 class = "text-center">Study Tools</h3>
+  	     <div id='tool' class = "d-none d-md-block">
+           <div class = "col-2">
+             <h3 class = "text-center">FILTER</h3>
              <ul id="check-list-box" class="list-group checked-list-box">
-               <li class="list-group-item text-center" data-color="info"><a style="text-decoration: underline;"><em>Flash Cards</em></a></li>
-             </ul>
+                 <li class="list-group-item" data-color="success">&emsp;<input type="checkbox" class="form-check-input" id="equation"><strong>Equation</strong></li>
+                 <li class="list-group-item" data-color="success">&emsp;<input type="checkbox" class="form-check-input" id="definition"><strong>Definition</strong></li>
+                 <li class="list-group-item" data-color="success">&emsp;<input type="checkbox" class="form-check-input" id="causal"><strong>Causal</strong></li>
+               </ul>
+              <br>
+              <h3 class = "text-center">Study Tools</h3>
+               <ul id="check-list-box" class="list-group checked-list-box">
+                 <li class="list-group-item text-center" data-color="info"><a style="text-decoration: underline;"><em>Flash Cards</em></a></li>
+               </ul>
+           </div>
          </div>
        </div>
     </div>
