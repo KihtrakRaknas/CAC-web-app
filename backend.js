@@ -20,7 +20,7 @@ function getUrlVars() {
     });
     return vars;
 }
-if(getUrlVars()["doc"] != undefined){
+if(getUrlVars()["code"] != undefined){
   document.getElementById("code").innerText = getUrlVars()["code"];
   initDoc(getUrlVars()["code"]);
 }else{
