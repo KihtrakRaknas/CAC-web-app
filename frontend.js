@@ -138,40 +138,13 @@ function getAllTextnodes(){
   return notes.childNodes;
 }
 
-function getCaretData(position){
-  var el = notes;
-  var node; nodes = getAllTextnodes(el);
-  for(var n = 0; n < nodes.length; n++) {
-    if (position > nodes[n].innerText.length && nodes[n+1]) {
-      // remove amount from the position, go to next node
-      position -= nodes[n].innerText.length;
-    } else {
-      node = n;
-    //  console.log(n)
-  //    console.log("pos"+position)
-      break;
-    }
-  }
-  // you'll need the node and the position (offset) to set the caret
-  return { node: node, position: position };
-}
 // assume "component" is DOM element
 // you may need to modify currentCaretPosition, see "Little Details"    section below
 
 // setting the caret with this info  is also standard
 function setCaretPosition(d){
   console.log(d);
-  /*
   var sel = window.getSelection(), range = document.createRange();
-  console.log(getAllTextnodes(notes));
-  range.setStart(getAllTextnodes(notes)[d.node].childNodes[0], d.position);
-  range.collapse(true);
-  sel.removeAllRanges();
-  sel.addRange(range);*/
-  var sel = window.getSelection(), range = document.createRange();
-//  console.log(d);
-  //console.log(getAllTextnodes(notes));
-  //console.log(getAllTextnodes(notes)[d.rowID]);
   if(getAllTextnodes(notes).length-1<d.rowID){
     setTimeout(tryLineAgain,1,d);
   }
@@ -187,8 +160,6 @@ function setCaretPosition(d){
   sel.removeAllRanges();
   sel.addRange(range);
   console.log("NEW CURSOR SET");
-  //getAllTextnodes(notes)[d.rowID].tabIndex = -1;
-  //getAllTextnodes(notes)[d.rowID].focus();
 }
 
 function tryAgain(da){
@@ -210,7 +181,7 @@ $( document ).ready(function(){
     parseText(notes);
 	   //console.log(focusedElement);
 	    focusedElement.dataset.Timestamp = Date.now();
-      console.log(notes.innerHTML);
+      //console.log(notes.innerHTML);
     uploadDocDataText(notes.innerHTML);
   });
 
