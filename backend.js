@@ -37,12 +37,22 @@ function uploadDocDataText(newVal){
     //docData.Content.divs[div.dataset.uid] = {text:div.innerText, index: parseInt(div.id)};
     //console.log(div.dataset.uid +"; Local:"+parseInt(div.dataset.Timestamp)+"; server: "+parseInt(docData.Content.divs[div.dataset.uid]["Timestamp"]));
     if(!(docData.Content.divs[div.dataset.uid])||parseInt(div.dataset.Timestamp)>parseInt(docData.Content.divs[div.dataset.uid]["Timestamp"])){//FINISH
-      console.log(" was pushed to the server");
+      console.log(div.dataset.uid+ " was pushed to the server");
       baseDoc.child("Content").child("divs").child(div.dataset.uid).update({text:div.innerText, index: parseInt(div.id), Timestamp: parseInt(div.dataset.Timestamp)});//DOESN"T WORK YET
     }else{
-      console.log("Local copy of "+div.dataset.uid + " is not more up to date!");
+      //console.log("Local copy of "+div.dataset.uid + " is not more up to date!");
     }
     //console.log(div.dataset.uid);
+  }
+  for(divID in docData.Content.divs){
+    var found = false;
+    for(div of notes.childNodes)
+      if(div.dataset.uid == divID)
+        found = true;
+    if(!found){
+      baseDoc.child("Content").child("divs").child(divID).remove();
+      console.log(divID+" was deleted from server");
+    }
   }
 //  console.log(docData);
   //docData.Content["Raw Text"] = newVal;
