@@ -1,5 +1,5 @@
 let notes = document.getElementById("content");
-let labels = document.getElementById("labels");
+//let labels = document.getElementById("labels");
 
 notes.tabIndex = -1;
 

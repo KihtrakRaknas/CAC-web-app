@@ -68,8 +68,8 @@ function parseText(box){
   let lines = box.innerText.trim().split("\n");
   types = lines.map((line)=>getType(line));
   let inhtml = "";
-  labels.innerText = "";
-  defaultType.style(labels);
+//  labels.innerText = "";
+//  defaultType.style(labels);
 	var usedindexs = [];
   for(let i=0;i<box.childNodes.length;i++){
 		let div = box.childNodes[i];
@@ -104,21 +104,29 @@ function parseText(box){
 			}
 		}
 		type.style(div);
-		let lDiv = document.createElement("div");
-		lDiv.innerText = type.name==="default"?"\n":type.name
-		type.style(lDiv);
-		lDiv.style.textAlign = "center";
-		labels.appendChild(lDiv);
+//		let lDiv = document.createElement("div");
+//		lDiv.innerText = type.name==="default"?"\n":type.name
+//		type.style(lDiv);
+//		lDiv.style.textAlign = "center";
+//		labels.appendChild(lDiv);
   }
   //box.innerHTML = inhtml;
 	console.log("TEST PARSE IS DONE");
   return types;
 }
 
-function getData(){
-	let infoObjects = [];
+function filterData(typeName){
+	restore();
 	for(let note of notes.childNodes){
-		let str = note.innerText;
+		if(note.className !== typeName){
+			note.style.display = "none";
+		}
+	}
+}
+
+function restore(){
+	for(let note of notes.childNodes){
+		note.style.display = "block";
 	}
 }
 
