@@ -88,10 +88,10 @@ function updateInputBox(newDivs){
         var newNotes = "";
         for(addNode of newNotesNode){
           newNotes += addNode.outerHTML;
-          console.log(addNode);
         }
         notes.innerHTML = newNotes;
 		}
+    parseText(notes);
     setCaretPosition(pos);
   });
 }
@@ -135,13 +135,9 @@ function getCaretPos(){
 }
 
 function getAllTextnodes(){
-  /*
-  var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
-  while(n=walk.nextNode()) a.push(n);
-  //return a;*/
   return notes.childNodes;
 }
-//notes.childNodes
+
 function getCaretData(position){
   var el = notes;
   var node; nodes = getAllTextnodes(el);
@@ -163,8 +159,9 @@ function getCaretData(position){
 // you may need to modify currentCaretPosition, see "Little Details"    section below
 
 // setting the caret with this info  is also standard
-var expect = null;
-function setCaretPosition(d){/*
+function setCaretPosition(d){
+  console.log(d);
+  /*
   var sel = window.getSelection(), range = document.createRange();
   console.log(getAllTextnodes(notes));
   range.setStart(getAllTextnodes(notes)[d.node].childNodes[0], d.position);
@@ -175,32 +172,45 @@ function setCaretPosition(d){/*
 //  console.log(d);
   //console.log(getAllTextnodes(notes));
   //console.log(getAllTextnodes(notes)[d.rowID]);
-//  console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length);
-  if(getAllTextnodes(notes)[d.rowID].childNodes[0].length<d.offset){//The Node doesn't have enough charecters to recreate the cursor's location
-//    console.log(getAllTextnodes(notes)[d.rowID].childNodes[0].length-d.offset);
-  //  if(d.offset-getAllTextnodes(notes)[d.rowID].childNodes[0].length>1)
-    //  alert("Our Systems have detected button mashing");
-    expect = d.offset;
-    d.offset = getAllTextnodes(notes)[d.rowID].childNodes[0].length;
-  }else if(expect!=null){
-    d.offset = expect;
-    expect = null;
+  if(getAllTextnodes(notes).length-1<d.rowID){
+    setTimeout(tryLineAgain,1,d);
   }
-  range.setStart(getAllTextnodes(notes)[d.rowID].childNodes[0], d.offset);
+	var childNodeIndex = getAllTextnodes(notes)[d.rowID].childNodes.length-1;
+  console.log(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].nodeValue);
+  //console.log(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].nodeValue.length+"; off"+d.offset+"; ");
+  if(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].length<d.offset){
+    setTimeout(tryAgain,1,d);
+    d.offset = getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex].length;
+  }
+  range.setStart(getAllTextnodes(notes)[d.rowID].childNodes[childNodeIndex], d.offset);
   range.collapse(true);
   sel.removeAllRanges();
   sel.addRange(range);
+  console.log("NEW CURSOR SET");
   //getAllTextnodes(notes)[d.rowID].tabIndex = -1;
   //getAllTextnodes(notes)[d.rowID].focus();
 }
 
-var lastLocalTimestamp = 0;
+function tryAgain(da){
+  console.log(da);
+  da.offset+=1;
+  while(getAllTextnodes(notes)[da.rowID].childNodes[getAllTextnodes(notes)[da.rowID].childNodes.length-1].nodeValue.length-da.offset>0){
+    da.offset+=1;
+  }
+  setCaretPosition(da);
+}
+
+function tryLineAgain(da){
+  console.log("LineFail");
+  setCaretPosition(da);
+}
 
 $( document ).ready(function(){
   notes.addEventListener("input",function(){
     parseText(notes);
-	console.log(focusedElement);
-	focusedElement.dataset.Timestamp = Date.now();
+	   //console.log(focusedElement);
+	    focusedElement.dataset.Timestamp = Date.now();
+      console.log(notes.innerHTML);
     uploadDocDataText(notes.innerHTML);
   });
 

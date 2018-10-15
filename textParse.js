@@ -92,7 +92,7 @@ function parseText(box){
 		}
 		div.tabIndex = 0;
 		for(let div of notes.childNodes){
-	        console.log("1");
+	        //console.log("1");
 		    div.tabIndex = 0;
 			div.onfocus = ()=>{
 				console.log(document.activeElement, "focus!")
@@ -107,7 +107,7 @@ function parseText(box){
 		labels.appendChild(lDiv);
   }
   //box.innerHTML = inhtml;
-
+	console.log("TEST PARSE IS DONE");
   return types;
 }
 
