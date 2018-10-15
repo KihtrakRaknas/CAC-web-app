@@ -13,14 +13,29 @@ var baseDoc = null;
 
 var docData = null;
 
-initDoc("(DocID)");
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+if(getUrlVars()["doc"] != undefined){
+  document.getElementById("code").innerText = getUrlVars()["doc"];
+  initDoc(getUrlVars()["doc"]);
+}else{
+  window.location = "file:///C:/Users/karth/Documents/GitHub/CAC-web-app/website.html"
+}
 
 //exitDoc("(DocID)");
 
 function upDocData(newVal){//updateLocal
   docData=newVal;
   if(docData==null){
-//    console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
+    console.log("Sorry, no document was found here");//TODO: Create an actual error message on screen
+    baseDoc.update({
+      Content: {divs: {"00000":{Timestamp: 0, index:0,text:"notes:"}}}
+    });
   }else{
     updateInputBox(docData.Content.divs);
 	for(let div of notes.childNodes){
