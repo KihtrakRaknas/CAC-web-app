@@ -115,10 +115,10 @@ function parseText(box){
   return types;
 }
 
-function filterData(typeName){
+function filterData(){
 	restore();
 	for(let note of notes.childNodes){
-		if(note.className !== typeName){
+		if(Array.from(arguments).indexOf(note.className) === -1){
 			note.style.display = "none";
 		}
 	}
